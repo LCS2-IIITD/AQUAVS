@@ -105,7 +105,7 @@ def group_data_by_class(input_x, input_y):
 #Ref - https://core.ac.uk/download/pdf/206095228.pdf
 def outlier_detection_med_mad(input_data, k1):
     column_med = np.median(input_data, axis = 0)
-    column_mad = stats.median_absolute_deviation(input_data,axis = 0)
+    column_mad = stats.median_abs_deviation(input_data,axis = 0)
 
     #computing threshold for each feature
     threshold_lower = column_med - (k1*column_mad)
