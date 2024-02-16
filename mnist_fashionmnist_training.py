@@ -33,6 +33,7 @@ if (datasetName == "MNIST"):
 if (datasetName == "FashionMNIST"):
     (train_data, train_labels), (test_data, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
 
+
 #reshaping
 test_data = test_data.reshape((test_data.shape[0], 28, 28, 1))
 train_data = train_data.reshape((train_data.shape[0], 28, 28, 1))
@@ -53,16 +54,13 @@ noisePerc = 20
 
 noisy_labels = np.load(str(noisePerc) + "_NoisyLabels_" + datasetName + ".npy")   #load noisy labels
 noisy_lvl = np.load(str(noisePerc) + "_NoiseLevels_" + datasetName +".npy")  # load noise levels
-
-# filteredPrediction = np.load(str(noisePerc) + "_NoiseLevelPrediction_" + datasetName +".npy")  #load filtered predictions
-latent_dim = 100
-MISLABEL_THRESHOLD = 0.5
-filteredPrediction = np.where(noisy_lvl / latent_dim <= MISLABEL_THRESHOLD, 1, 0)
+filteredPrediction = np.load(str(noisePerc) + "_NoiseLevelPrediction_" + datasetName +".npy")  #load filtered predictions
 
 grn_truth = np.array(noisy_labels == train_labels, dtype=int)
 # print("Number of mislabelled: ", len(grn_truth) - sum(grn_truth), "out of", len(grn_truth))
 
 from random import sample
+
 
 if (datasetName == "MNIST"):
     sampleSize = int((5/100 * sum(filteredPrediction)))
